@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <title>Responsive Portfolio Website</title>
+  <!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet"
+    href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
+
+
+  <style>
+    @media (min-width: 1024px) {
+      .container {
+        display: flex;
+      }
+
+      @media (max-width: 2000px) {
+
+        .sticky-nav {
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+
+
+      .sticky-aside {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow-y: auto;
+        flex: 0 0 380px;
+        /* Adjust as needed */
+      }
+
+      .sticky-nav {
+        flex-direction: column;
+        border: 1px solid #575757;
+        border-radius: 30px;
+        position: fixed;
+        right: 68px;
+        top: 322px;
+        /* width: 55px; */
+        text-align: center;
+        gap: 20px;
+        padding: 24px 0;
+        background: #1f1f1f;
+        z-index: 20;
+
+      }
+
+      .main-content {
+        flex: 1;
+        padding-left: 20px;
+        /* Adjust as needed */
+      }
+    }
+
+    /* Video container */
+    .video-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    /* Video */
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(70%);
+    }
+
+    @media (min-aspect-ratio: 16/9) {
+      video {
+        height: 300%;
+        top: -100%;
+      }
+    }
+
+    @media (max-aspect-ratio: 16/9) {
+      video {
+        width: 300%;
+        left: -100%;
+      }
+    }
+
+    #container {
+      margin: 0%;
+      display: flex;
+    }
+
+    #circle {
+      position: relative;
+      width: 100%;
+      padding-bottom: 100%;
+      overflow: hidden;
+    }
+
+    #circle text {
+      font-family: 'Helvetica Neue', Arial;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    #circle svg {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 250px;
+
+      -webkit-animation-name: rotate;
+      -moz-animation-name: rotate;
+      -ms-animation-name: rotate;
+      -o-animation-name: rotate;
+      animation-name: rotate;
+      -webkit-animation-duration: 5s;
+      -moz-animation-duration: 5s;
+      -ms-animation-duration: 5s;
+      -o-animation-duration: 5s;
+      animation-duration: 10s;
+      -webkit-animation-iteration-count: infinite;
+      -moz-animation-iteration-count: infinite;
+      -ms-animation-iteration-count: infinite;
+      -o-animation-iteration-count: infinite;
+      animation-iteration-count: infinite;
+      -webkit-animation-timing-function: linear;
+      -moz-animation-timing-function: linear;
+      -ms-animation-timing-function: linear;
+      -o-animation-timing-function: linear;
+      animation-timing-function: linear;
+
+    }
+
+    @-webkit-keyframes rotate {
+      from {
+        -webkit-transform: rotate(360deg);
+      }
+
+      to {
+        -webkit-transform: rotate(0);
+      }
+    }
+
+    @-moz-keyframes rotate {
+      from {
+        -moz-transform: rotate(360deg);
+      }
+
+      to {
+        -moz-transform: rotate(0);
+      }
+    }
+
+    @-ms-keyframes rotate {
+      from {
+        -ms-transform: rotate(360deg);
+      }
+
+      to {
+        -ms-transform: rotate(0);
+      }
+    }
+
+    @-o-keyframes rotate {
+      from {
+        -o-transform: rotate(360deg);
+      }
+
+      to {
+        -o-transform: rotate(0);
+      }
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotate(360deg);
+      }
+
+      to {
+        transform: rotate(0);
+      }
+    }
+  </style>
+
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-800 text-white dark:text-white">
+
+
+  <!-- Video Container -->
+  <div class="video-container">
+    <video autoplay muted loop>
+        <source src="video1.mov" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
+  <!-- Navbar -->
+  <!-- <nav class="bg-white dark:bg-gray-900 shadow-lg p-4">
+        <div class="flex justify-between items-center">
+             Logo 
+            <div class="flex items-center">
+                <span class="text-xl font-bold">Your Name</span>
+            </div>
+             Hamburger menu 
+            <div class="block lg:hidden">
+                <button id="nav-toggle"
+                    class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-800 hover:border-blue-500">
+                    <svg class="w-3 h-3 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <title>Menu</title>
+                        <path fill-rule="evenodd"
+                            d="M3 5h14a1 1 0 110 2H3a1 1 0 110-2zm0 6h14a1 1 0 110 2H3a1 1 0 110-2zm0 6h14a1 1 0 110 2H3a1 1 0 110-2z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav> -->
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="fixed inset-0 bg-gray-800 bg-opacity-75 z-50 hidden lg:hidden">
+    <div class="flex justify-end pt-4 pr-4">
+      <button id="close-mobile-menu" class="text-gray-500 hover:text-gray-300 focus:outline-none focus:text-gray-300">
+        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="flex justify-end pt-10 pr-4">
+      <ul class="text-xl font-bold text-white space-y-4">
+        <li><a href="#home" class="hover:text-blue-500"><i class="fa-solid fa-house"></i>Home</a></li>
+        <li><a href="#about" class="hover:text-blue-500"><i class="fa-regular fa-user"></i>About</a></li>
+
+        <li><a href="#resume" class="hover:text-blue-500"><i class="fa-regular fa-file"></i>Resume</a></li>
+        <li><a href="#portfolio" class="hover:text-blue-500"><i class="fa-solid fa-briefcase"></i>Portfolio</a></li>
+        <li><a href="#skils" class="hover:text-blue-500">Skills</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Content Container -->
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sticky-aside bg-transparent dark:bg--900 p-1 grid content-center">
+      <div class=" border-solid border-2 shadow-xl rounded-3xl border-gray-600 p-8  ">
+        <div class="flex justify-between">
+          <div>
+            <p class=" font-bold mb-4 text-2xl">Kalyan</h2>
+          </div>
+          <div>
+            <p class="font-bold ">Full Stack Web Developer</h2>
+          </div>
+        </div>
+        <div>
+          <img src="me.jpg" class="w-72 h-72 rounded-3xl mx-auto mb-4" alt="">
+        </div>
+        <p class="text-center font-bold text-2xl">Kalyan Seervi</p>
+        <p class="text-center ">kalyanseerviy125@gmail.com</p>
+        <div class="flex justify-center p-4">
+          <div class="px-3"><i class="fa-solid hover:shadow-xl  fa-x p-2 text-2xl rounded-full border-2 border-solid "></i></div>
+          <div class="px-3"><i class="fa-brands hover:shadow-xl fa-github p-2 text-2xl rounded-full border-2 border-solid"></i></div>
+          <div class="px-3"><i class="fa-brands fa-linkedin hover:shadow-xl p-2 text-2xl rounded-full border-2 border-solid"></i>
+          </div>
+        </div>
+        <div class="flex justify-center "><button
+            class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full w-60 ">
+            <i class="fa-sharp fa-solid fa-envelopes"></i> Hire Me</button></div>
+      </div>
+    </aside>
+
+    <nav class="sticky-nav hidden sm:block">
+      <ul class="text-xl font-bold text-white space-y-4">
+        <li><a href="#home" class="hover:text-blue-500"><i class="fa-solid fa-house"></i></a></li>
+        <li><a href="#about" class="hover:text-blue-500"><i class="fa-regular fa-user"></i></a></li>
+        <li><a href="#resume" class="hover:text-blue-500"><i class="fa-regular fa-file"></i></a></li>
+        <li><a href="#skills" class="hover:text-blue-500">Skills</a></li>
+        <li><a href="#portfolio" class="hover:text-blue-500"><i class="fa-solid fa-briefcase"></i></a></li>
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content p-6 overflow-y-hidden bg-transparent">
+      <div class="flex justify-between  pl-5">
+        <div><span class="border border-4  shadow-lg border-blue-500 p-2 rounded-lg"> <i class="fa-solid fa-house "></i>
+            Introduce</span></div>
+        <div x-data="{ open: false }"> <!-- Open sidebar button -->
+          <!-- Sidebar Overlay -->
+          <div x-show="open" class="fixed inset-0 z-50 overflow-hidden">
+            <div x-show="open" x-transition:enter="transition-opacity ease-out duration-300"
+              x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+              x-transition:leave="transition-opacity ease-in duration-300" x-transition:leave-start="opacity-100"
+              x-transition:leave-end="opacity-0" class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity">
+            </div>
+            <!-- Sidebar Content -->
+            <section class="absolute inset-y-0 right-0 pl-5 w-72 flex">
+              <div x-show="open" x-transition:enter="transition-transform ease-out duration-300"
+                x-transition:enter-start="transform translate-x-full" x-transition:enter-end="transform translate-x-0"
+                x-transition:leave="transition-transform ease-in duration-300"
+                x-transition:leave-start="transform translate-x-0" x-transition:leave-end="transform translate-x-full"
+                class="w-screen max-w-md">
+                <div class="h-full flex flex-col py-6 bg-white shadow-xl">
+                  <!-- Sidebar Header -->
+                  <div class="flex items-center justify-between px-4">
+
+                    <button x-on:click="open = false" class="text-gray-500 hover:text-gray-700">
+                      <span class="sr-only">Close</span>
+                      <svg class="h-6 w-6" x-description="Heroicon name: x" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                      </svg>
+                    </button>
+                  </div>
+
+                  <!-- Sidebar Content -->
+                  <div class="mt-4 px-4 h-full text-gray-800  overflow-auto">
+                    <h3 class="text-center text-2xl">Menu</h3>
+                    <ul class="text-xl font-bold text-red space-y-4">
+                      <li><a href="#home" class="hover:text-blue-500"><i class="fa-solid fa-house px-2"></i>Home</a>
+                      </li>
+                      <li><a href="#about" class="hover:text-blue-500"><i class="fa-regular fa-user px-2"></i> About</a>
+                      </li>
+
+                      <li><a href="#resume" class="hover:text-blue-500"><i
+                            class="fa-regular fa-file px-2"></i>Resume</a></li>
+                      <li><a href="#skills" class="hover:text-blue-500"><i class="las la-shapes"></i>Skills</a></li>
+                      <li><a href="#portfolio" class="hover:text-blue-500"><i
+                            class="fa-solid fa-briefcase px-2"></i>Portfolio</a></li>
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+            </section>
+          </div>
+          <button x-on:click="open = true" class="px-4 py-2 bg-black text-white rounded-md border-2 border-gray-300"> <i
+              class="fa-solid fa-bars"></i> </button>
+        </div>
+      </div>
+      <div class="p-8 h-screen">
+        <p class="md:text-8xl text-2xl font-bold p-5">Hi, I am Full Stack Web Developer</p>
+        <!-- <div id="container">
+          <div id="circle">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+              y="0px" width="300px" height="300px" viewBox="0 0 300 300" enable-background="new 0 0 300 300"
+              xml:space="preserve">
+              <defs>
+                <path id="circlePath" d=" M 150, 150 m -60, 0 a 60,60 0 0,1 120,0 a 60,60 0 0,1 -120,0 " />
+              </defs>
+              <circle cx="150" cy="100" r="75" fill="none" />
+              <g>
+                <use xlink:href="#circlePath" fill="none" />
+                <text fill="#000">
+                  <textPath xlink:href="#circlePath">My Portfolio</textPath>
+                </text>
+              </g>
+            </svg>
+          </div>
+        </div> -->
+      </div>
+      <div class="mt-8 h-screen pl-5" id="#home">
+        <div><span class="border border-4  shadow-lg border-blue-500 p-2 rounded-lg"> <i class="fa-regular fa-user"></i>
+            About</span></div>
+        <p class="text-gray-500 py-8">Skilled Python Django full-stack developer proficient in front
+          end, back end, and data analysis. Strong database skills with
+          a knack for problem-solving. Eager to apply expertise in designing,
+          developing, and deploying web applications, driving
+          innovative solutions. Passionate problem solver leveraging
+          technology to drive solutions</p>
+      </div>
+
+      <div class="mt-8 h-screen pl-5" id="#resume">
+        <div><span class="border border-4  shadow-lg border-blue-500 p-2 rounded-lg"> <i class="fa-regular fa-file"></i>
+            Resume</span></div>
+        <h1 class="text-4xl font-bold py-8">Education & Experience</h1>
+        <div class="border-l-4 border-indigo-500 py-8">
+          <h2 class="text-gray-500  pl-8">2022-present</h2>
+          <p class="text-xl pl-8">Advanced Diploma (Vocational)
+            in IT, Networking & Cloud Computing
+            [NSQF Level - 6]</p>
+          <p class="pl-8">National Skill Training Institute (NSTI),
+            under DGT(MSDE, India) & in collaboration
+            with IBM, india, jodhpur</p>
+
+
+        </div>
+        <div class="border-l-4 border-indigo-500 py-8">
+          <h2 class="text-gray-500  pl-8">2022-present</h2>
+          <p class="text-xl pl-8">Bachlore's Degree </p>
+          <p class="pl-8">BCA (Bachlore's of Computer Applications)</p>
+
+
+        </div>
+      </div>
+
+      <div class="mt-8 md:h-screen max-h-full  pl-5" id="#skills">
+        <div><span class="border border-4  shadow-lg border-blue-500 p-2 rounded-lg"> <i class="fa-regular fa-file"></i>
+            My Skills</span></div>
+        <div class="p-8 grid grid-cols-2 gap-4 md:grid-cols-4">
+          <div
+            class="border border-2 border-blue-500 rounded-full content-center  text-center p-9 hover:border-red-500 hover:shadow-xl">
+            <p class="">Python Django</p>
+            <p>80%</p>
+          </div>
+          <div
+            class="border border-2 border-blue-500 rounded-full content-center  text-center p-9 hover:border-red-500 hover:shadow-xl">
+            <p>Data Science</p>
+            <p>80%</p>
+          </div>
+          <div
+            class="border border-2 border-blue-500 rounded-full content-center  text-center p-9 hover:border-red-500 hover:shadow-xl">
+            <p>PHP</p>
+            <p>80%</p>
+          </div>
+          <div
+            class="border border-2 border-blue-500 rounded-full content-center  text-center p-9 hover:border-red-500 hover:shadow-xl">
+            <p>REST API's</p>
+            <p>80%</p>
+          </div>
+          <div
+            class="border border-2 border-blue-500 rounded-full content-center  text-center p-9 hover:border-red-500 hover:shadow-xl">
+            <p>MongoDB</p>
+            <p>80%</p>
+          </div>
+          <div
+            class="border border-2 border-blue-500 rounded-full content-center  text-center p-9 hover:border-red-500 hover:shadow-xl">
+            <p>MySQL</p>
+            <p>80%</p>
+
+          </div>
+          <div
+            class="border border-2 border-blue-500 rounded-full content-center  text-center p-9 hover:border-red-500 hover:shadow-xl">
+            <p>Tailwind CSS</p>
+            <p>80%</p>
+          </div>
+          <div
+            class="border border-2 border-blue-500 rounded-full content-center  text-center p-9 hover:border-red-500 hover:shadow-xl">
+            <p>JavaScript</p>
+            <p>80%</p>
+          </div>
+
+        </div>
+      </div>
+      <div class="mt-8  max-h-full  pl-5" id="#portfolio">
+        <div><span class="border border-4  shadow-lg border-blue-500 p-2 rounded-lg"> <i class="fa-regular fa-file"></i>
+            Portfolio</span></div>
+        <h1 class="text-4xl font-bold py-8">Featured Projects</h1>
+        <div class="p-8">
+          <img src="photo_6187977868789791179_w.jpg" alt=""
+            class="border border-2 border-indigo-500 rounded-lg shadow-lg w-full object-cover object-center">
+          <p class="text-2xl font-bold py-4 text-center">FoodFort</p>
+        </div>
+        <div class="p-8">
+          <img src="photo_6181220837261162737_y.jpg" alt=""
+            class="border border-2 border-indigo-500 rounded-lg shadow-lg w-full object-cover object-center">
+          <p class="text-2xl font-bold py-4 text-center">ALMS- Assistent for Library Management System</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Script for toggling mobile menu -->
+  <script>
+    document.getElementById('nav-toggle').addEventListener('click', function () {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+
+    document.getElementById('close-mobile-menu').addEventListener('click', function () {
+      document.getElementById('mobile-menu').classList.add('hidden');
+    });
+
+
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+
+</body>
+
+</html>
